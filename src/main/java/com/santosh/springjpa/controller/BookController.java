@@ -36,6 +36,12 @@ public class BookController {
 		return ResponseEntity.noContent().build();
 	}
 
+	@GetMapping("/books/byname/{name}")
+	public ResponseEntity<?> getBookByName(@PathVariable("name") String name) {
+		List<Book> books = bookRepository.findBooksByName(name);
+		return ResponseEntity.ok(books);
+	}
+
 	@GetMapping("/books/category/{id}")
 	public ResponseEntity<?> getBookByCategoryId(@PathVariable("id") int id) {
 		List<Book> books = bookRepository.getBooksByCategoryId(id);

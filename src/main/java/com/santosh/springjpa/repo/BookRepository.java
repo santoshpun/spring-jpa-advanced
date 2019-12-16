@@ -1,6 +1,7 @@
 package com.santosh.springjpa.repo;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -12,10 +13,10 @@ import com.santosh.springjpa.model.Book;
 @Repository
 public interface BookRepository extends JpaRepository<Book, Integer> {
 
-	List<Book> findByName(String name);
+	Optional<Book> findById(Integer id);
 
-	@Query("SELECT t FROM Book t WHERE t.name = :name")
-	Book findBookByName(@Param("name") String name);
+	@Query("SELECT t FROM Book t WHERE t.name like %:name%")
+	List<Book> findBooksByName(@Param("name") String name);
 
 	@Query("SELECT t FROM Book t")
 	List<Book> findAllBooks();
